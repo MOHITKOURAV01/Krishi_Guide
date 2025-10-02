@@ -1,3 +1,6 @@
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,15 +19,20 @@ const Stack = createNativeStackNavigator();
 
 function MainTabs() {
   return (
-    <Tabs.Navigator screenOptions={({ route }) => ({
+    <Tabs.Navigator
+      screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let icon = 'home';
           if (route.name === 'Home') icon = 'home';
           if (route.name === 'Crop Guide') icon = 'leaf';
           if (route.name === 'Soil Test') icon = 'flask';
-          if (route.name === 'Market') icon = 'bar-chart';
+          if (route.name === 'Market') icon = 'stats-chart';
           if (route.name === 'Profile') icon = 'person';
-          return <Ionicons name={icon} size={size} color={color} /> }, headerShown: false,})}>
+          return <Ionicons name={icon} size={size} color={color} />;
+        },
+        headerShown: false,
+      })}
+    >
       <Tabs.Screen name="Home" component={HomeScreen} />
       <Tabs.Screen name="Crop Guide" component={CropGuideScreen} />
       <Tabs.Screen name="Soil Test" component={SoilTestScreen} />
@@ -37,6 +45,7 @@ function MainTabs() {
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar style="auto" />
       <Stack.Navigator>
         <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
         <Stack.Screen name="Crop Detail" component={CropDetailScreen} />
