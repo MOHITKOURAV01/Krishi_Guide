@@ -1,7 +1,12 @@
 {
   "expo": {
+<<<<<<< HEAD
     "name": "Krishi_guide",
     "slug": "Krishi_guide",
+=======
+    "name": "Krishi_Guide",
+    "slug": "Krishi_Guide",
+>>>>>>> e84aacc5aecceae14453fd2aa9579ef8af030a01
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
