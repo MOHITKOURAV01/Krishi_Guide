@@ -40,6 +40,3 @@ npm start
 - Season tabs and crop list replicate the web app’s Crop Guide
 - Dark mode follows system preference similar to Tailwind dark theme
 
-## License
-
-MIT
