@@ -32,6 +32,10 @@ export const translations = {
         govtSchemes: "Govt Schemes",
         humidity: "Humidity",
         wind: "Wind",
+        feelsLike: "Feels like {{temp}}",
+        windSpeed: "Wind Speed",
+        pressure: "Pressure",
+        unableToLoadWeather: "Unable to load weather data",
 
         // Crop Recommendation
         cropTitle: "Crop Recommendation",
@@ -105,6 +109,10 @@ export const translations = {
         govtSchemes: "सरकारी योजनाएं",
         humidity: "नमी",
         wind: "हवा",
+        feelsLike: "महसूस होता है {{temp}}",
+        windSpeed: "हवा की गति",
+        pressure: "दबाव",
+        unableToLoadWeather: "मौसम डेटा लोड करने में असमर्थ",
 
         // Crop Recommendation
         cropTitle: "फसल सुझाव",

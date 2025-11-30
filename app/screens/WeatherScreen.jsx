@@ -1,12 +1,15 @@
 
 
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { COLORS } from '../utils/constants';
-import { getWeatherByCity } from '../services/weatherService';
+import { getWeatherByCity, getWeatherForecast } from '../services/weatherService';
 import { useLanguage } from '../context/LanguageContext';
+import WeatherAlerts from '../components/WeatherAlerts';
+import WeatherForecast from '../components/WeatherForecast';
 
 /**
  * Weather Screen - Detailed weather information
@@ -14,6 +17,7 @@ import { useLanguage } from '../context/LanguageContext';
 export default function WeatherScreen() {
     const { t } = useLanguage();
     const [weather, setWeather] = useState(null);
+    const [forecast, setForecast] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [cityName, setCityName] = useState('Delhi');
@@ -25,24 +29,42 @@ export default function WeatherScreen() {
     const loadWeather = async () => {
         try {
             // Try to get user's location
-            let { status } = await Location.requestForegroundPermissionsAsync();
+            const { status } = await Location.requestForegroundPermissionsAsync();
+
             if (status === 'granted') {
-                let currentLocation = await Location.getCurrentPositionAsync({});
-                let address = await Location.reverseGeocodeAsync({
-                    latitude: currentLocation.coords.latitude,
-                    longitude: currentLocation.coords.longitude
+                const location = await Location.getCurrentPositionAsync({});
+                const address = await Location.reverseGeocodeAsync({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude
                 });
                 const city = address[0]?.city || address[0]?.district || address[0]?.subregion || 'Delhi';
                 setCityName(city);
                 const data = await getWeatherByCity(city);
                 setWeather(data);
+
+                // Fetch 10-day forecast
+                const forecastData = await getWeatherForecast(location.coords.latitude, location.coords.longitude);
+                setForecast(forecastData);
             } else {
                 // Use default city if permission denied
                 const data = await getWeatherByCity('Delhi');
                 setWeather(data);
+
+                // Fetch forecast for Delhi (default coordinates)
+                const forecastData = await getWeatherForecast(28.6139, 77.2090);
+                setForecast(forecastData);
             }
         } catch (error) {
             console.error('Failed to load weather:', error);
+            // Fallback to default city on error
+            try {
+                const data = await getWeatherByCity('Delhi');
+                setWeather(data);
+                const forecastData = await getWeatherForecast(28.6139, 77.2090);
+                setForecast(forecastData);
+            } catch (fallbackError) {
+                console.error('Fallback also failed:', fallbackError);
+            }
         } finally {
             setLoading(false);
             setRefreshing(false);
@@ -139,6 +161,12 @@ export default function WeatherScreen() {
                     <Text style={styles.sunTime}>{formatTime(weather.sys.sunset)}</Text>
                 </View>
             </View>
+
+            {/* Weather Alerts */}
+            <WeatherAlerts weather={weather} />
+
+            {/* 10-Day Weather Forecast */}
+            <WeatherForecast forecast={forecast} />
 
             {/* Farming Advice */}
             <View style={styles.adviceCard}>

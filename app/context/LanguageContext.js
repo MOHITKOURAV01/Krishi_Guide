@@ -6,8 +6,15 @@ const LanguageContext = createContext();
 export const LanguageProvider = ({ children }) => {
     const [language, setLanguage] = useState('en'); // 'en' or 'hi'
 
-    const t = (key) => {
-        return translations[language][key] || key;
+    const t = (key, params = {}) => {
+        let text = translations[language][key] || key;
+
+        // Replace params like {{key}} with value
+        Object.keys(params).forEach(param => {
+            text = text.replace(new RegExp(`{{${param}}}`, 'g'), params[param]);
+        });
+
+        return text;
     };
 
     const toggleLanguage = () => {

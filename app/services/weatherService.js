@@ -1,4 +1,8 @@
-import { API_KEYS } from '../utils/constants';
+
+
+const API_KEYS = {
+    OPENWEATHER: '9b88143e699d705afc21d8361112923e'
+};
 
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
@@ -38,6 +42,8 @@ const getMockWeatherData = (cityName = 'Delhi') => ({
     },
     weather: [
         {
+            id: 721,
+            main: 'Haze',
             description: 'haze',
             icon: '50d',
         },
@@ -47,8 +53,9 @@ const getMockWeatherData = (cityName = 'Delhi') => ({
     },
     visibility: 4000,
     sys: {
-        sunrise: Math.floor(Date.now() / 1000) - 3600, // 1 hour ago
-        sunset: Math.floor(Date.now() / 1000) + 25200, // 7 hours from now
+        // Realistic sunrise/sunset times for India (around 6:30 AM and 6:00 PM)
+        sunrise: Math.floor(new Date().setHours(6, 30, 0, 0) / 1000),
+        sunset: Math.floor(new Date().setHours(18, 0, 0, 0) / 1000),
     },
 });
 
@@ -73,4 +80,108 @@ export const getWeatherByCoordinates = async (lat, lon) => {
         console.error('Error fetching weather by coordinates:', error);
         throw error;
     }
+};
+
+/**
+ * Fetch weather alerts by coordinates
+ * Uses OpenWeatherMap One Call API to get weather alerts
+ * @param {number} lat - Latitude
+ * @param {number} lon - Longitude
+ * @returns {Promise<Array>} Weather alerts array
+ */
+export const getWeatherAlerts = async (lat, lon) => {
+    try {
+        // OneCall API 3.0 endpoint for alerts
+        const response = await fetch(
+            `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily&appid=${API_KEYS.OPENWEATHER}`
+        );
+
+        if (!response.ok) {
+            console.warn(`Weather Alerts API error: ${response.status}`);
+            return [];
+        }
+
+        const data = await response.json();
+        return data.alerts || [];
+    } catch (error) {
+        console.error('Error fetching weather alerts:', error);
+        return [];
+    }
+};
+
+/**
+ * Fetch 10-day weather forecast by coordinates
+ * @param {number} lat - Latitude
+ * @param {number} lon - Longitude
+ * @returns {Promise<Array>} 10-day forecast array
+ */
+export const getWeatherForecast = async (lat, lon) => {
+    try {
+        // Using 5 day / 3 hour forecast API (free tier)
+        const response = await fetch(
+            `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEYS.OPENWEATHER}`
+        );
+
+        if (!response.ok) {
+            console.warn(`Weather Forecast API error: ${response.status}`);
+            return getMockForecastData();
+        }
+
+        const data = await response.json();
+
+        // Group by day and get daily forecast
+        const dailyForecasts = [];
+        const processedDates = new Set();
+
+        data.list.forEach(item => {
+            const date = new Date(item.dt * 1000);
+            const dateStr = date.toDateString();
+
+            // Take noon forecast (12:00) for each day
+            if (!processedDates.has(dateStr) && date.getHours() === 12) {
+                processedDates.add(dateStr);
+                dailyForecasts.push({
+                    date: dateStr,
+                    temp: Math.round(item.main.temp),
+                    tempMin: Math.round(item.main.temp_min),
+                    tempMax: Math.round(item.main.temp_max),
+                    description: item.weather[0].description,
+                    icon: item.weather[0].icon,
+                    humidity: item.main.humidity,
+                    windSpeed: item.wind.speed,
+                    rain: item.rain ? item.rain['3h'] || 0 : 0,
+                });
+            }
+        });
+
+        return dailyForecasts.slice(0, 10); // Return up to 10 days
+    } catch (error) {
+        console.error('Error fetching weather forecast:', error);
+        return getMockForecastData();
+    }
+};
+
+// Mock forecast data for fallback
+const getMockForecastData = () => {
+    const forecasts = [];
+    const today = new Date();
+
+    for (let i = 0; i < 10; i++) {
+        const date = new Date(today);
+        date.setDate(date.getDate() + i);
+
+        forecasts.push({
+            date: date.toDateString(),
+            temp: 25 + Math.floor(Math.random() * 10),
+            tempMin: 20 + Math.floor(Math.random() * 5),
+            tempMax: 30 + Math.floor(Math.random() * 10),
+            description: ['clear sky', 'few clouds', 'scattered clouds', 'partly cloudy'][Math.floor(Math.random() * 4)],
+            icon: '01d',
+            humidity: 40 + Math.floor(Math.random() * 40),
+            windSpeed: 2 + Math.random() * 5,
+            rain: Math.random() > 0.7 ? Math.random() * 10 : 0,
+        });
+    }
+
+    return forecasts;
 };
