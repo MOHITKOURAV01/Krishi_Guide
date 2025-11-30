@@ -1,55 +1,73 @@
-import 'react-native-gesture-handler';
-import 'react-native-reanimated';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView, StatusBar as RNStatusBar, StyleSheet, View, Image, Dimensions } from 'react-native';
+import { enableScreens } from 'react-native-screens';
+import { AuthProvider, useAuth } from './app/context/AuthContext';
+import { LanguageProvider } from './app/context/LanguageContext';
+import TabNavigator from './app/navigation/TabNavigator';
+import LoginScreen from './app/screens/LoginScreen';
 
-import HomeScreen from './src/screens/HomeScreen.js';
-import CropGuideScreen from './src/screens/CropGuideScreen.js';
-import SoilTestScreen from './src/screens/SoilTestScreen.js';
-import MarketScreen from './src/screens/MarketScreen.js';
-import ProfileScreen from './src/screens/ProfileScreen.js';
-import CropDetailScreen from './src/screens/CropDetailScreen.js';
+enableScreens(false);
 
-const Tabs = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const { width, height } = Dimensions.get('window');
 
-function MainTabs() {
+function AppContent() {
+  const [isShowSplash, setIsShowSplash] = useState(true);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsShowSplash(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isShowSplash) {
+    return (
+      <View style={styles.splashContainer}>
+        <StatusBar style="light" />
+        <Image
+          source={require('./assets/splash_logo.png')}
+          style={styles.splashImage}
+          resizeMode="cover"
+        />
+      </View>
+    );
+  }
+
   return (
-    <Tabs.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let icon = 'home';
-          if (route.name === 'Home') icon = 'home';
-          if (route.name === 'Crop Guide') icon = 'leaf';
-          if (route.name === 'Soil Test') icon = 'flask';
-          if (route.name === 'Market') icon = 'stats-chart';
-          if (route.name === 'Profile') icon = 'person';
-          return <Ionicons name={icon} size={size} color={color} />;
-        },
-        headerShown: false,
-      })}
-    >
-      <Tabs.Screen name="Home" component={HomeScreen} />
-      <Tabs.Screen name="Crop Guide" component={CropGuideScreen} />
-      <Tabs.Screen name="Soil Test" component={SoilTestScreen} />
-      <Tabs.Screen name="Market" component={MarketScreen} />
-      <Tabs.Screen name="Profile" component={ProfileScreen} />
-    </Tabs.Navigator>
+    <SafeAreaView style={styles.container}>
+      <RNStatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <NavigationContainer>
+        {user ? <TabNavigator /> : <LoginScreen />}
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Crop Detail" component={CropDetailScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <LanguageProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  splashContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  splashImage: {
+    width: '100%',
+    height: '100%',
+  },
+});

@@ -1,22 +1,11 @@
 {
   "expo": {
-<<<<<<< HEAD
-    "name": "KrishiGuideRN",
-    "slug": "KrishiGuideRN",
-=======
-<<<<<<< HEAD
-    "name": "Krishi_guide",
-    "slug": "Krishi_guide",
-=======
-    "name": "Krishi_Guide",
-    "slug": "Krishi_Guide",
->>>>>>> e84aacc5aecceae14453fd2aa9579ef8af030a01
->>>>>>> f724f96e3d324314ef267ddbfb9c7dc0cee47aad
+    "name": "KrishiGuide",
+    "slug": "krishi-guide",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -30,7 +19,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.mohitkourav.krishiguide",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
