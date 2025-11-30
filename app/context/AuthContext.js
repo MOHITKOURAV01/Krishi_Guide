@@ -10,10 +10,19 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(true);
         // Simulate API call
         setTimeout(() => {
+            // Extract name from email (part before @)
+            const emailName = email.split('@')[0];
+            // Capitalize first letter and replace dots/underscores with spaces
+            const formattedName = emailName
+                .replace(/[._]/g, ' ')
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+
             // Mock user data
             const mockUser = {
                 id: '1',
-                name: 'Farmer John', // Default name if not provided
+                name: formattedName, // Name extracted from email
                 email: email,
             };
             setUser(mockUser);
