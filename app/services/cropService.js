@@ -21,89 +21,137 @@ export const getCropRecommendations = (
     const recommendations = [];
 
     // Rice
-    if (rainfall > 100 && temp > 20 && soilPH >= 5.5 && soilPH <= 6.5) {
+    if (rainfall > 80 && temp > 20 && soilPH >= 5.0 && soilPH <= 8.0) {
         recommendations.push({
             crop: 'Rice',
-            reason: 'Thrives in high rainfall (>100mm), warm temp (>20°C) and slightly acidic soil.'
+            reason: 'Suitable for high rainfall (>80mm) and warm temperature.'
         });
     }
 
     // Wheat
-    if (rainfall > 40 && rainfall < 100 && temp > 15 && temp < 25 && soilPH >= 6.0 && soilPH <= 7.5) {
+    if (rainfall > 30 && rainfall < 120 && temp > 10 && temp < 30 && soilPH >= 5.5 && soilPH <= 7.5) {
         recommendations.push({
             crop: 'Wheat',
-            reason: 'Suitable for moderate rainfall, cool temp (15-25°C) and neutral soil.'
+            reason: 'Good for moderate rainfall and cool to warm temperature (10-30°C).'
         });
     }
 
     // Maize
-    if (nitrogen > 50 && phosphorus > 40 && potassium > 30 && temp > 18 && temp < 30 && soilPH >= 5.5 && soilPH <= 7.0) {
+    if (nitrogen > 40 && temp > 18 && temp < 35 && soilPH >= 5.5 && soilPH <= 7.5) {
         recommendations.push({
             crop: 'Maize',
-            reason: 'Requires rich nutrients (N>50, P>40, K>30) and warm temp.'
+            reason: 'Requires nitrogen (>40) and warm temperature.'
         });
     }
 
     // Chickpea
-    if (rainfall < 60 && temp > 15 && temp < 30 && soilPH >= 6.0 && soilPH <= 8.0) {
+    if (rainfall < 80 && temp > 15 && temp < 30 && soilPH >= 6.0 && soilPH <= 8.5) {
         recommendations.push({
             crop: 'Chickpea',
-            reason: 'Good for low rainfall areas and wide pH range.'
+            reason: 'Thrives in lower rainfall and wider pH range.'
+        });
+    }
+
+    // Soybean
+    if (temp > 20 && temp < 35 && rainfall > 50 && soilPH >= 6.0 && soilPH <= 7.5) {
+        recommendations.push({
+            crop: 'Soybean',
+            reason: 'Excellent for warm climate (20-35°C) and moderate rain.'
+        });
+    }
+
+    // Mustard
+    if (temp > 10 && temp < 25 && rainfall < 50 && soilPH >= 6.0 && soilPH <= 7.5) {
+        recommendations.push({
+            crop: 'Mustard',
+            reason: 'Best for cool, dry weather conditions.'
+        });
+    }
+
+    // Groundnut
+    if (temp > 20 && temp < 30 && rainfall > 40 && soilPH >= 5.0 && soilPH <= 7.0) {
+        recommendations.push({
+            crop: 'Groundnut',
+            reason: 'Prefers warm conditions and slightly acidic to neutral soil.'
+        });
+    }
+
+    // Tomato
+    if (temp > 18 && temp < 30 && potassium > 40 && soilPH >= 6.0 && soilPH <= 7.0) {
+        recommendations.push({
+            crop: 'Tomato',
+            reason: 'Requires potassium (>40) and moderate temperature.'
         });
     }
 
     // Potato
-    if (potassium > 80 && temp > 15 && temp < 24 && soilPH >= 5.0 && soilPH <= 6.5) {
+    if (potassium > 60 && temp > 10 && temp < 25 && soilPH >= 4.8 && soilPH <= 6.5) {
         recommendations.push({
             crop: 'Potato',
-            reason: 'Needs high potassium (>80) and cool temperatures.'
+            reason: 'Needs high potassium and cool weather.'
         });
     }
 
     // Cotton
-    if (temp > 22 && rainfall > 70 && soilPH >= 5.5 && soilPH <= 8.0) {
+    if (temp > 21 && rainfall > 50 && soilPH >= 5.5 && soilPH <= 8.5) {
         recommendations.push({
             crop: 'Cotton',
-            reason: 'Requires warm climate (>22°C) and moderate rainfall.'
+            reason: 'Requires warm climate and moderate rainfall.'
         });
     }
 
     // Sugarcane
-    if (rainfall > 120 && nitrogen > 80 && phosphorus > 60 && potassium > 80 && temp > 20 && soilPH >= 6.0 && soilPH <= 7.5) {
+    if (rainfall > 100 && nitrogen > 60 && temp > 20) {
         recommendations.push({
             crop: 'Sugarcane',
-            reason: 'Needs heavy rainfall, high nutrients and warm climate.'
+            reason: 'High water and nutrient requirement crop.'
         });
     }
 
-    // Fallback recommendations based on pH
-    if (recommendations.length === 0) {
+    // Millets (Hardy crop fallback)
+    if (rainfall < 50 || soilPH > 8.0 || soilPH < 5.5) {
+        recommendations.push({
+            crop: 'Millets (Bajra/Jowar)',
+            reason: 'Hardy crop suitable for extreme pH or low rainfall conditions.'
+        });
+    }
+
+    // Fallback recommendations based on pH if list is short
+    if (recommendations.length < 2) {
         if (soilPH < 5.5) {
             recommendations.push({
                 crop: 'Blueberries',
-                reason: 'Soil is acidic (<5.5 pH). Blueberries thrive here.'
+                reason: 'Acidic soil (<5.5 pH) is ideal.'
             });
             recommendations.push({
                 crop: 'Sweet Potatoes',
-                reason: 'Tolerant to acidic soil conditions.'
+                reason: 'Tolerant to acidic soil.'
             });
         } else if (soilPH > 7.5) {
             recommendations.push({
                 crop: 'Cabbage',
-                reason: 'Soil is alkaline (>7.5 pH). Cabbage grows well.'
+                reason: 'Alkaline soil tolerant.'
             });
             recommendations.push({
                 crop: 'Cauliflower',
-                reason: 'Suitable for alkaline soil conditions.'
+                reason: 'Grows well in alkaline conditions.'
+            });
+            recommendations.push({
+                crop: 'Spinach',
+                reason: 'Can tolerate higher pH levels.'
             });
         } else {
             recommendations.push({
                 crop: 'Beans',
-                reason: 'General recommendation for neutral soil.'
+                reason: 'Versatile crop for neutral soil.'
             });
             recommendations.push({
                 crop: 'Carrots',
-                reason: 'Good root vegetable for standard conditions.'
+                reason: 'Good for standard soil conditions.'
+            });
+            recommendations.push({
+                crop: 'Peas',
+                reason: 'Cool season crop for neutral soil.'
             });
         }
     }
