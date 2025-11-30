@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, TextInput, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../utils/constants';
 import { getMarketPrices } from '../services/marketService';
@@ -54,19 +54,6 @@ export default function MarketPriceScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>{t('marketPrices')}</Text>
-                <View style={styles.searchContainer}>
-                    <Ionicons name="search" size={20} color={COLORS.textLight} style={styles.searchIcon} />
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder={t('searchMarket')}
-                        value={searchQuery}
-                        onChangeText={setSearchQuery}
-                    />
-                </View>
-            </View>
-
             {loading ? (
                 <View style={styles.centerContainer}>
                     <ActivityIndicator size="large" color={COLORS.primary} />
@@ -78,6 +65,27 @@ export default function MarketPriceScreen() {
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle={styles.listContainer}
                     showsVerticalScrollIndicator={false}
+                    ListHeaderComponent={() => (
+                        <>
+                            <Image
+                                source={require('../../assets/market_banner.png')}
+                                style={styles.bannerImage}
+                                resizeMode="cover"
+                            />
+                            <View style={styles.header}>
+                                <Text style={styles.title}>{t('marketPrices')}</Text>
+                                <View style={styles.searchContainer}>
+                                    <Ionicons name="search" size={20} color={COLORS.textLight} style={styles.searchIcon} />
+                                    <TextInput
+                                        style={styles.searchInput}
+                                        placeholder={t('searchMarket')}
+                                        value={searchQuery}
+                                        onChangeText={setSearchQuery}
+                                    />
+                                </View>
+                            </View>
+                        </>
+                    )}
                     ListEmptyComponent={
                         <View style={styles.centerContainer}>
                             <Text style={styles.emptyText}>{t('noDataFound')}</Text>
@@ -93,6 +101,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.background,
+    },
+    bannerImage: {
+        width: '100%',
+        height: 200,
     },
     header: {
         padding: 20,

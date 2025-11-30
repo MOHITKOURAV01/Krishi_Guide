@@ -1,6 +1,7 @@
 
+
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { COLORS } from '../utils/constants';
@@ -83,8 +84,15 @@ export default function WeatherScreen() {
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
         >
-            {/* Main Weather Card */}
-            <View style={styles.mainCard}>
+            {/* Banner Image */}
+            <Image
+                source={require('../../assets/weather_banner.png')}
+                style={styles.bannerImage}
+                resizeMode="cover"
+            />
+
+            {/* Weather Header */}
+            <View style={styles.header}>
                 <Text style={styles.cityName}>{weather.name}</Text>
                 <Text style={styles.temperature}>{Math.round(weather.main.temp)}°C</Text>
                 <Text style={styles.description}>{weather.weather[0].description}</Text>
@@ -162,7 +170,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: COLORS.error,
     },
-    mainCard: {
+    bannerImage: {
+        width: '100%',
+        height: 200,
+    },
+    header: {
         backgroundColor: COLORS.primary,
         margin: 16,
         padding: 32,
