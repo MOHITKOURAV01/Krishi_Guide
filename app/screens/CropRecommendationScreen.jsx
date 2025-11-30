@@ -9,7 +9,7 @@ import {
     Alert,
     Image,
 } from 'react-native';
-
+import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../utils/constants';
 import InputField from '../components/InputField';
@@ -236,5 +236,94 @@ const styles = StyleSheet.create({
         color: COLORS.textLight,
         lineHeight: 20,
     },
-
+    // Intro Screen Styles
+    introContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    introContent: {
+        width: '85%',
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        borderRadius: 24,
+        padding: 32,
+        alignItems: 'center',
+        backdropFilter: 'blur(10px)',
+    },
+    iconCircle: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 24,
+        elevation: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+    },
+    introTitle: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 8,
+        textAlign: 'center',
+    },
+    introSubtitle: {
+        fontSize: 16,
+        color: '#fff',
+        opacity: 0.9,
+        marginBottom: 40,
+        textAlign: 'center',
+    },
+    featuresContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginBottom: 40,
+    },
+    featureItem: {
+        alignItems: 'center',
+        flex: 1,
+    },
+    featureIcon: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    featureText: {
+        fontSize: 12,
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '500',
+    },
+    analyzeButton: {
+        width: '100%',
+        borderRadius: 16,
+        overflow: 'hidden',
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+    },
+    analyzeButtonGradient: {
+        paddingVertical: 16,
+        paddingHorizontal: 32,
+        alignItems: 'center',
+    },
+    analyzeButtonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#1e3a8a',
+    },
+    backButton: {
+        marginRight: 12,
+    },
 });
