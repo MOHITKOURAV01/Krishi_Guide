@@ -49,8 +49,8 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.userName}>{user?.name || 'Farmer'}</Text>
                     {location ? (
                         <View style={styles.locationContainer}>
-                            <Ionicons name="location" size={14} color={COLORS.textLight} />
-                            <Text style={styles.locationText}>{location}</Text>
+                            <Ionicons name="location" size={16} color={COLORS.textLight} />
+                            <Text style={styles.location}>{location}</Text>
                         </View>
                     ) : null}
                 </View>
@@ -60,6 +60,15 @@ export default function HomeScreen({ navigation }) {
                         style={styles.profileImage}
                     />
                 </TouchableOpacity>
+            </View>
+
+            {/* Hero Image */}
+            <View style={styles.heroContainer}>
+                <Image
+                    source={require('../../assets/home_hero.png')}
+                    style={styles.heroImage}
+                    resizeMode="cover"
+                />
             </View>
 
             {/* Weather Summary */}
@@ -137,6 +146,45 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
+    },
+    heroContainer: {
+        marginHorizontal: 20,
+        marginTop: 20,
+        borderRadius: 16,
+        overflow: 'hidden',
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+    },
+    heroImage: {
+        width: '100%',
+        height: 280,
+    },
+    heroOverlay: {
+        position: 'absolute',
+        top: 20,
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    heroTitle: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#fff',
+        textShadowColor: 'rgba(0, 0, 0, 0.3)',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
+        marginBottom: 8,
+    },
+    heroSubtitle: {
+        fontSize: 16,
+        color: '#fff',
+        textShadowColor: 'rgba(0, 0, 0, 0.3)',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 3,
     },
     section: {
         marginTop: 20,
