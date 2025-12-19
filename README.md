@@ -312,7 +312,7 @@ This project is created for educational purposes as part of an academic assignme
 
 ## 📸 Screenshots
 
-*(Add screenshots of your app here)*
+
 
 ---
 
