@@ -5,7 +5,7 @@ A comprehensive farming companion app built with React Native and Expo for the M
 ## Demo_Video_Link
 https://drive.google.com/file/d/1_YktUFf91kjLU2BodZJYp2_nq5OoahC4/view?usp=sharing
 
-## 📱 Overview
+## Overview
 
 KrishiGuide is a bilingual (English/Hindi) mobile application designed to assist farmers with:
 - **Crop Recommendations**: AI-powered crop suggestions based on soil NPK values, pH, temperature, and rainfall
@@ -14,27 +14,27 @@ KrishiGuide is a bilingual (English/Hindi) mobile application designed to assist
 - **Government Schemes**: Information about agricultural schemes with direct application links
 - **Profile Management**: User authentication, profile editing, and language preferences
 
-## ✨ Key Features
+##  Key Features
 
-### 🔐 Authentication
+###  Authentication
 - User login with email/password
 - Profile creation and management
 - Secure session handling
 
-### 🏠 Home Screen
+###  Home Screen
 - Location-based weather summary
 - Quick access cards to all features
 - Personalized greeting with user name
 - Beautiful UI with custom splash screen
 
-### 🌱 Crop Recommendation
+###  Crop Recommendation
 - Beautiful banner image
 - Input form for soil parameters (N, P, K, pH)
 - Climate data (temperature, rainfall)
 - Multiple crop suggestions with detailed reasoning
 - Visual crop cards with emojis and explanations
 
-### 🌤️ Weather
+###  Weather
 - Current location detection using GPS
 - Real-time weather conditions
 - Temperature, humidity, wind speed, visibility
@@ -42,21 +42,21 @@ KrishiGuide is a bilingual (English/Hindi) mobile application designed to assist
 - Weather-based farming advice
 - Fallback to mock data when API rate-limited
 
-### 💰 Market Prices
+###  Market Prices
 - Real-time commodity prices
 - Search functionality
 - Filter by crop category
 - Price trend indicators (up/down)
 - Market location information
 
-### 🏛️ Government Schemes
+###  Government Schemes
 - Comprehensive list of schemes
 - Detailed benefits for each scheme
 - "Apply Now" buttons with direct links
 - Beautiful banner image
 - Scrollable content
 
-### 👤 Profile
+###  Profile
 - User information display
 - Profile picture upload
 - Edit profile functionality
@@ -64,7 +64,7 @@ KrishiGuide is a bilingual (English/Hindi) mobile application designed to assist
 - Settings and preferences
 - Logout functionality
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Framework**: React Native with Expo SDK 54
 - **Language**: JavaScript (JSX)
@@ -78,7 +78,7 @@ KrishiGuide is a bilingual (English/Hindi) mobile application designed to assist
   - OpenWeatherMap for weather data
   - Custom services for crop, market, and scheme data
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 KrishiGuide/
@@ -119,7 +119,7 @@ KrishiGuide/
 └── package.json           # Dependencies
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -155,7 +155,7 @@ npx expo start
    - Scan the QR code with Expo Go (Android) or Camera app (iOS)
    - Or press `a` for Android emulator, `i` for iOS simulator
 
-## 📦 Dependencies
+##  Dependencies
 
 ```json
 {
@@ -173,7 +173,7 @@ npx expo start
 }
 ```
 
-## 🎨 UI/UX Features
+##  UI/UX Features
 
 - **Bilingual Support**: Complete English and Hindi translations
 - **Custom Splash Screen**: Beautiful branded splash screen
@@ -184,7 +184,7 @@ npx expo start
 - **Color Theme**: Consistent green agricultural theme
 - **Icons**: Intuitive Ionicons throughout the app
 
-## 🔑 API Configuration
+##  API Configuration
 
 The app uses OpenWeatherMap API for weather data. The API key is configured in:
 ```javascript
@@ -196,7 +196,7 @@ const API_KEYS = {
 
 **Note**: The current API key is rate-limited. For production use, obtain your own key from [OpenWeatherMap](https://openweathermap.org/api).
 
-## 🌍 Localization
+##  Localization
 
 The app supports two languages:
 - **English** (default)
@@ -204,7 +204,7 @@ The app supports two languages:
 
 Language can be toggled from the Profile screen. All screens and components are fully translated.
 
-## 📱 Screens Overview
+##  Screens Overview
 
 ### 1. Login Screen
 - Email/password authentication
@@ -256,7 +256,7 @@ Language can be toggled from the Profile screen. All screens and components are 
 - Settings options
 - Logout button
 
-## 🚧 Known Limitations
+##  Known Limitations
 
 - Weather API has rate limits (mock data used as fallback)
 - Market prices are simulated data
@@ -264,7 +264,7 @@ Language can be toggled from the Profile screen. All screens and components are 
 - Crop recommendation uses rule-based logic (not ML)
 - No backend server (all data is local/mock)
 
-## 🔮 Future Enhancements
+##  Future Enhancements
 
 - [ ] Backend integration with real APIs
 - [ ] Machine Learning for crop prediction
@@ -277,32 +277,32 @@ Language can be toggled from the Profile screen. All screens and components are 
 - [ ] Fertilizer calculator
 - [ ] Irrigation scheduler
 
-## 🎓 Academic Context
+##  Academic Context
 
 This project is developed as part of the **Mobile Application Development (MAD)** course end-semester project. The app demonstrates:
 
-- ✅ React Native component architecture
-- ✅ Context API for state management
-- ✅ Navigation patterns (Tab + Stack)
-- ✅ API integration
-- ✅ Location services
-- ✅ Image handling
-- ✅ Internationalization (i18n)
-- ✅ Form handling and validation
-- ✅ UI/UX best practices
-- ✅ Git version control
+-  React Native component architecture
+-  Context API for state management
+-  Navigation patterns (Tab + Stack)
+-  API integration
+-  Location services
+-  Image handling
+-  Internationalization (i18n)
+-  Form handling and validation
+-  UI/UX best practices
+-  Git version control
 
-## 📄 License
+##  License
 
 This project is created for educational purposes as part of an academic assignment.
 
-## 👨‍💻 Developer
+##  Developer
 
 **Mohit Kourav**
 - GitHub: [@MOHITKOURAV01](https://github.com/MOHITKOURAV01)
 - Project Repository: [KrishiGuide](https://github.com/MOHITKOURAV01/Krishi_Guide)
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Original web project: [krishiguide](https://github.com/MOHITKOURAV01/krishiguide)
 - OpenWeatherMap for weather API
@@ -310,11 +310,6 @@ This project is created for educational purposes as part of an academic assignme
 - Course instructors and peers
 - All open-source contributors
 
-## 📸 Screenshots
-
-
-
----
 
 **Note**: This is an academic project developed for learning purposes. For production deployment, implement proper security measures, API key management, real data sources, and backend infrastructure.
 
