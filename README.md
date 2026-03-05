@@ -1,4 +1,4 @@
-# KrishiGuide - React Native Mobile App 🌾
+# KrishiGuide - React Native Mobile App... 🌾
 
 A comprehensive farming companion app built with React Native and Expo for the Mobile Application Development (MAD) end-semester project.
 
