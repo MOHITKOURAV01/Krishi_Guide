@@ -5,7 +5,7 @@ A comprehensive farming companion app built with React Native and Expo for the M
 ## Demo_Video_Link
 https://drive.google.com/file/d/1_YktUFf91kjLU2BodZJYp2_nq5OoahC4/view?usp=sharing
 
-## Overview
+## Overview;
 
 KrishiGuide is a bilingual (English/Hindi) mobile application designed to assist farmers with:
 - **Crop Recommendations**: AI-powered crop suggestions based on soil NPK values, pH, temperature, and rainfall
